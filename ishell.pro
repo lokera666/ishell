@@ -55,9 +55,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     html.qrc \
     icon.qrc
+#-L$$PWD/Libs/openssl/lib/
+macx: LIBS += -L$$PWD/Libs/ssh2/lib/ -L/Users/yangzhao/openssl/lib  -lcrypto -lssl -lssh2
 
-unix:!macx: LIBS += -L$$PWD/Libs/ssh2/lib64/  -lcrypto -lssl -lssh2
-
-INCLUDEPATH += $$PWD/Libs/openssl/include $$PWD/Libs/ssh2/include
-DEPENDPATH += $$PWD/Libs/openssl/include $$PWD/Libs/ssh2/include
-
+INCLUDEPATH += $$PWD/Libs/ssh2/include
+DEPENDPATH += $$PWD/Libs/ssh2/include
