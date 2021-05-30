@@ -11,6 +11,7 @@ ICON = logo.icns
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    backupandrecoverydialog.cpp \
     common.cpp \
     components/confirmdialog.cpp \
     connecteditui.cpp \
@@ -26,11 +27,13 @@ SOURCES += \
     sftpclient.cpp \
     sftpdialog.cpp \
     sshclient.cpp \
+    utils/aes.cpp \
     webconsole.cpp \
     websocketserver.cpp \
     welcome.cpp
 
 HEADERS += \
+    backupandrecoverydialog.h \
     common.h \
     components/confirmdialog.h \
     connecteditui.h \
@@ -45,11 +48,13 @@ HEADERS += \
     sftpclient.h \
     sftpdialog.h \
     sshclient.h \
+    utils/aes.h \
     webconsole.h \
     websocketserver.h \
     welcome.h
 
 FORMS += \
+    backupandrecoverydialog.ui \
     connecteditui.ui \
     connectmanagerui.ui \
     console.ui \
@@ -73,4 +78,7 @@ macx: LIBS += -L$$PWD/Libs/ssh2/lib/ -L/Users/yangzhao/openssl/lib  -lcrypto -ls
 
 INCLUDEPATH += $$PWD/Libs/openssl/include $$PWD/Libs/ssh2/include
 DEPENDPATH += $$PWD/Libs/openssl/include $$PWD/Libs/ssh2/include
+
+INCLUDEPATH += $$PWD/../../../openssl/include
+DEPENDPATH += $$PWD/../../../openssl/include
 
