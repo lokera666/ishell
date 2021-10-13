@@ -8,3 +8,11 @@ Common::Common()
 {
 
 }
+
+void test(){
+    qDebug() << "dll000 万能函数调用";
+}
+
+void test1(){
+    qDebug() << "dll1111 万能函数调用";
+}

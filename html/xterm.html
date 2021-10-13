@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 
 <head>
@@ -26,7 +26,8 @@
       window.core = channel.objects.core
   })
 
-  var clientId
+  var clientId;
+  var socket;
   var body_height = $(document).height() - 20;
   var body_width = $(document).width();
   $("#terminal").height(body_height);
@@ -34,6 +35,7 @@
   Terminal.applyAddon(fit);
 
   var term = new Terminal({
+    rendererType: "dom", //渲染类型
     termName: "xterm",
     useStyle: true,
     convertEol: true,
@@ -105,7 +107,9 @@
   function setClientId(cId){
     clientId=cId
     open_websocket()
-    core.ssh2connect("")
+    setTimeout(()=>{
+        core.ssh2connect("")
+    },2000)
   }
 
   function open_websocket() {
@@ -114,8 +118,7 @@
       else
           var baseUrl = "ws://localhost:12345";
 
-      var socket = new WebSocket(baseUrl);
-
+      socket = new WebSocket(baseUrl);
       socket.onclose = function() {
           console.error("web channel closed");
       };
@@ -123,6 +126,7 @@
           console.error("web channel error: " + error);
       };
       socket.onopen = function() {
+
           socket.send(clientId);
       }
       socket.onmessage=function(evt){

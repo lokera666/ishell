@@ -1,4 +1,4 @@
-#ifndef FILEINFO_H
+﻿#ifndef FILEINFO_H
 #define FILEINFO_H
 #include <QString>
 #include <QStringList>
@@ -19,6 +19,8 @@ struct FileInfo_S {
     QString userOrGroup;
 
     QString fileNum;
+
+    QString updateTime;
 
 };
 Q_DECLARE_METATYPE(FileInfo_S)

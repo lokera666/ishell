@@ -42,5 +42,9 @@ void WebSocketServer::deleteClient(QString clientId){
 
 void WebSocketServer::sendMsg(QString clientId,QString msg){
 //    qDebug() << "客户端数量" << clientMap.count();
-    clientMap[clientId]->sendTextMessage(msg);
+    QWebSocket* ws = clientMap[clientId];
+    if(ws!=NULL){
+        ws->sendTextMessage(msg);
+    }
+
 }

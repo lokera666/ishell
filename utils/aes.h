@@ -1,4 +1,4 @@
-#ifndef AES_H
+﻿#ifndef AES_H
 #define AES_H
 #include <openssl/aes.h>
 #include <iostream>

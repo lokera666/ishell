@@ -8,7 +8,6 @@
 #include <QDir>
 #include <QLabel>
 
-
 MainWindow* mainwindow=NULL;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("ishell");
-
+    setWindowIcon(QIcon(":/logo.png"));
     QList<QScreen *> list_screen =  QGuiApplication::screens();  //多显示器
     QRect rect = list_screen.at(0)->geometry();
     setMinimumSize(800, 600);
@@ -75,7 +74,7 @@ void MainWindow::initUI(){
 void MainWindow::initWebSocketServer(){
     webSocketServer=new WebSocketServer;
     connect(webSocketServer,&WebSocketServer::errorMsg,this,[=](const QString& msg){
-        QMessageBox::warning(this,"警告",msg);
+        QMessageBox::warning(this,tr("警告"),msg);
         QApplication::quit();
     });
     webSocketServer->run();

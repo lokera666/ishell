@@ -1,4 +1,4 @@
-#include "aes.h"
+﻿#include "aes.h"
 #include <string.h>
 #include <QFile>
 

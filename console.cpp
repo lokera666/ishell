@@ -1,37 +1,74 @@
-﻿#include "console.h"
-#include "ui_console.h"
+﻿//#include "console.h"
+//#include "ui_console.h"
+//#include <QPainter>
+//#include <QVBoxLayout>
 
-Console::Console(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Console)
-{
-    ui->setupUi(this);
-    sshClient=new SSHClient("127.0.0.1","22","root","root");
-    sshClient->start();
-    connect(sshClient,SIGNAL(connectSuccess()),this,SLOT(connectSuccess()));
-    connect(sshClient,&SSHClient::authSuccess,[=](){
-        qDebug() << "认证成功";
-    });
+//Console::Console(QWidget *parent) :
+//    QAbstractScrollArea(parent),
+//    ui(new Ui::Console)
+//{
+//    ui->setupUi(this);
+//    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
-    connect(sshClient,SIGNAL(readChannelData(const char*)),this,SLOT(readChannelData(const char*)));
-}
+//    sshClient=new SSHClient("127.0.0.1","22","developer","yangzhao!3329");
+//    sshClient->start();
+//    connect(sshClient,SIGNAL(connectSuccess()),this,SLOT(connectSuccess()));
+//    connect(sshClient,&SSHClient::authSuccess,[=](){
+//        qDebug() << "认证成功";
+//    });
 
-void Console::resizeEvent(QResizeEvent *){
+//    connect(sshClient,SIGNAL(readChannelData(const char)),this,SLOT(readChannelData(const char)));
+//    layout = new QVBoxLayout;
+//    layout->setAlignment(Qt::AlignTop);
+//    setLayout(layout);
+//}
 
-}
+//void Console::resizeEvent(QResizeEvent *){
 
-void Console::connectSuccess(){
+//}
 
-}
+//void Console::paintEvent(QPaintEvent *event){
+////    QPainter painter(this->viewport());
+////    // 设置画笔颜色
+////    painter.setPen(QColor(0, 160, 230));
+////    painter.drawText(100, 100, QStringLiteral("青春不老，奋斗不止！"));
 
-void Console::readChannelData(const char* data){
-    QString d(data);
-//    qDebug() << data;
-//        QString script="writeData('"+d+"')";
-        ui->console->appendHtml(d);
-}
+////    // 绘制区域从坐标点(20, 200)处开始
+////    painter.drawText(QPoint(20, 200), QStringLiteral("纯正开源之美，有趣、好玩、靠谱。。。"));
 
-Console::~Console()
-{
-    delete ui;
-}
+//}
+
+//void Console::keyPressEvent(QKeyEvent *event){
+
+
+//}
+
+//void Console::mousePressEvent(QMouseEvent *event){
+
+
+//}
+
+//void Console::connectSuccess(){
+
+//}
+
+//void Console::readChannelData(const char data){
+//    QString d(data);
+//    lock.lock();
+//    if(data=='\r'){
+//        this->lineEdit=NULL;
+//    }
+//    if(this->lineEdit==NULL){
+//        this->lineEdit=new QLineEdit;
+//        this->lineEdit->setEnabled(false);
+//        this->layout->addWidget(lineEdit);
+//    }
+//    QString o =this->lineEdit->text();
+//    this->lineEdit->setText(o+d);
+//    lock.unlock();
+//}
+
+//Console::~Console()
+//{
+//    delete ui;
+//}
