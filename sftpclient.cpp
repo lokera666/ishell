@@ -284,9 +284,9 @@ bool SFTPClient::mkdir(QString path) {
 }
 
 bool SFTPClient::rmdir(QString path) {
-  std::string p = path.toStdString();
-  while ((rc = libssh2_sftp_rmdir_ex(sftp_session, p.c_str(),
-                                     strlen(p.c_str()))) ==
+  auto byteArray = path.toUtf8();
+  while ((rc = libssh2_sftp_rmdir_ex(sftp_session, byteArray.data(),
+                                     byteArray.length())) ==
          LIBSSH2_ERROR_EAGAIN) {
     waitsocket(sock, session);
   }
@@ -299,9 +299,9 @@ bool SFTPClient::rmdir(QString path) {
 }
 
 bool SFTPClient::removeFile(QString path) {
-  string filePath = path.toStdString();
-  while ((rc = libssh2_sftp_unlink_ex(sftp_session, filePath.data(),
-                                      filePath.length())) ==
+  auto byteArray = path.toUtf8();
+  while ((rc = libssh2_sftp_unlink_ex(sftp_session, byteArray.data(),
+                                      byteArray.length())) ==
          LIBSSH2_ERROR_EAGAIN) {
     waitsocket(sock, session);
   }
@@ -372,6 +372,7 @@ void SFTPClient::scpUpload(QString filePath, QString remotePath) {
   delete[] data;
   qDebug() << "已发送数据大小：" << currentSize;
   f.close();
+  libssh2_sftp_close(sftp_handle);
   emit fileUploadSuccess();
 }
 
@@ -432,6 +433,7 @@ void SFTPClient::scpDownload(QString remotePath, QString localPath) {
 
   delete[] data;
   file.close();
+  libssh2_sftp_close(sftp_handle);
   emit fileDownloadSuccess();
 }
 

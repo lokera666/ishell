@@ -142,7 +142,9 @@ void WebConsole::setChannelRequestPtySize(const QString &size) {
 
 void WebConsole::closeEvent(QCloseEvent *event) {
   webView->page()->runJavaScript("closews()");
-  sshClient->stop();
+  if (sshClient) {
+    sshClient->stop();
+  }
 }
 
 void WebConsole::paintEvent(QPaintEvent *event) {
