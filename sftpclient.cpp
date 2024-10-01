@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QTimer>
 #include <QtConcurrent>
+#include <thread>
 
 #include "fileinfo.h"
 #define BUFFER_SIZE 1048576

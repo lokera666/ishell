@@ -12,16 +12,16 @@
 class SftpDialog : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   explicit SftpDialog(QWidget *parent, ConnectInfo connectInfo);
   ~SftpDialog();
   ConnectInfo connectInfo;
   SFTPClient *sftpClient = NULL;
 
-protected:
+ protected:
   void closeEvent(QCloseEvent *event);
 
-private:
+ private:
   QHBoxLayout *hBoxLayout = NULL;
   QTreeWidget *treeView;
   QTreeWidgetItem *rootItem;
@@ -32,11 +32,11 @@ private:
 
   void initUI();
 
-  QString rootDir = "/";
+  QString currentPath = "/";
 
   void sftpConnect();
 
   void treeWidgetItemRefresh(QTreeWidgetItem *item);
 };
 
-#endif // SFTPDIALOG_H
+#endif  // SFTPDIALOG_H

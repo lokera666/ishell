@@ -47,7 +47,7 @@ void SftpDialog::initUI() {
   connect(treeView, &QTreeWidget::itemActivated,
           [&](QTreeWidgetItem *item, int column) { qDebug() << "回车"; });
 
-  treeView->setColumnCount(1);  //设置列
+  treeView->setColumnCount(1);  // 设置列
   treeView->hideColumn(6);
   treeView->setHeaderLabels(QStringList() << "文件名");
 
@@ -90,7 +90,8 @@ void SftpDialog::sftpConnect() {
   connect(sftpClient, &SFTPClient::initSftpSessionSuccess, this, [=]() {
     qDebug() << "initSftpSessionSuccess ThreadId is"
              << QThread::currentThreadId();
-    sftpClient->asyncOpendir(rootDir);
+    folderItemWidget->setCurrentDirEdit(currentPath);
+    sftpClient->asyncOpendir(currentPath);
   });
   connect(sftpClient, &SFTPClient::errorMsg, this, [=](QString msg) {
     AlertWindow *alertWindow = new AlertWindow(this, true);
@@ -106,6 +107,7 @@ void SftpDialog::sftpConnect() {
           [=](QString msg) { QMessageBox::information(this, "提示", msg); });
   connect(sftpClient, &SFTPClient::opendirEvent, this,
           [=](QString currentPath) {
+            this->currentPath = currentPath;
             if (currentPath == "/") {
               refresh = true;
               int count = rootItem->childCount();
