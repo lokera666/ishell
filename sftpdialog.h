@@ -2,47 +2,41 @@
 #define SFTPDIALOG_H
 
 #include <QDialog>
-#include <QTreeWidgetItem>
-#include "sftpclient.h"
 #include <QProgressBar>
-namespace Ui {
-class SftpDialog;
-}
+#include <QTreeWidgetItem>
 
-class SftpDialog : public QDialog
-{
-    Q_OBJECT
+#include "components/alertwindow.h"
+#include "components/folderitemwidget.h"
+#include "sftpclient.h"
 
-public:
-    explicit SftpDialog(QWidget *parent = nullptr);
-    SftpDialog(QWidget *parent = nullptr,ConnectInfo* connectInfo=nullptr);
-    ~SftpDialog();
-    ConnectInfo* connectInfo;
-    SFTPClient* sftpClient;
+class SftpDialog : public QWidget {
+  Q_OBJECT
 
-protected:
-    void closeEvent(QCloseEvent *event);
+ public:
+  explicit SftpDialog(QWidget *parent, ConnectInfo connectInfo);
+  ~SftpDialog();
+  ConnectInfo connectInfo;
+  SFTPClient *sftpClient = NULL;
 
+ protected:
+  void closeEvent(QCloseEvent *event);
 
-private:
-    Ui::SftpDialog *ui;
-    QTreeWidget* treeView;
-    QTreeWidgetItem* rootItem;
-    QTreeWidgetItem* currentItem;
-    void initUI();
-    QString rootDir="/";
-    QProgressBar* progressBarMaster;
-    QProgressBar* progressBarChild;
+ private:
+  QHBoxLayout *hBoxLayout = NULL;
+  QTreeWidget *treeView;
+  QTreeWidgetItem *rootItem;
+  FolderItemWidget *folderItemWidget = NULL;
+  QThread *thread;
 
+  bool refresh = false;
 
-    void treeWidgetItemRefresh(QTreeWidgetItem* item);
+  void initUI();
 
-    void fileUpload(QTreeWidgetItem* item);
+  QString currentPath = "/";
 
-    void fileDownload(QString remotePath);
+  void sftpConnect();
 
-private slots:
-    void popMenu(const QPoint& p);
+  void treeWidgetItemRefresh(QTreeWidgetItem *item);
 };
 
-#endif // SFTPDIALOG_H
+#endif  // SFTPDIALOG_H
